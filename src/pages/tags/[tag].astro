@@ -6,12 +6,20 @@ export async function getStaticPaths() {
     const allPosts = await Astro.glob("../posts/*.md");
 
     const uniqueTags = [
-        ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),
+        ...new Set(
+            allPosts
+                .map(
+                    (post: { frontmatter: { tags: any } }) =>
+                        post.frontmatter.tags,
+                )
+                .flat(),
+        ),
     ];
 
-    return uniqueTags.map((tag) => {
-        const filteredPosts = allPosts.filter((post) =>
-            post.frontmatter.tags.includes(tag),
+    return uniqueTags.map((tag: any) => {
+        const filteredPosts = allPosts.filter(
+            (post: { frontmatter: { tags: string | any[] } }) =>
+                post.frontmatter.tags.includes(tag),
         );
         return {
             params: { tag },
@@ -28,7 +36,7 @@ const { posts } = Astro.props;
     <p>Posts tagged with {tag}</p>
     <ul>
         {
-            posts.map((post) => (
+            posts.map((post: { url: any; frontmatter: { title: any } }) => (
                 <BlogPost url={post.url} title={post.frontmatter.title} />
             ))
         }

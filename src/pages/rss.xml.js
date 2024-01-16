@@ -13,5 +13,5 @@ export async function GET(context) {
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-    site: "https://example.com" //Acá debería ir la url del servicio de hosting que estemos usando
+    site: "https://example.com" //Acá debería ir la url de la app en el servicio de hosting que estemos usando
 });
